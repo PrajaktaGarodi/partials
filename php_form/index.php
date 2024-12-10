@@ -3,9 +3,29 @@
 
     if (isset($_POST['submit']))
     {
+        echo "<script>alert('Submit');</script>";
         $username = $_POST['username'];
         $password = $_POST['password'];
 
+       $sql=  "SELECT * FROM phpform WHERE username = '$username' ";
+       $result = mysqli_query($conn, $sql);
+
+       if(mysqli_num_rows($result)){
+        $row = mysqli_fetch_assoc($result);
+
+        $check = "SELECT * FROM phpform WHERE username = '$username' AND password =  '$password'";
+
+        $check_result = mysqli_query($conn, $check);
+
+        if($check_result)
+        {
+            echo "<script> alert('login successfully')</script>";
+        }
+        else{
+            echo "<script> alert('Invalid Password')</script>";
+        }
+
+       }
 
     }
 
@@ -41,7 +61,7 @@
     <div class="login-form">
         <h3 class="text-center">Login</h3>
         <div id="message"></div>
-        <form  method="POST">
+        <form action="index.php" method="POST">
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" id="username" name="username" required>

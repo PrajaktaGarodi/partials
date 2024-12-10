@@ -62,37 +62,40 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
     }
+    .error{
+      color: red;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="form-container">
       <h2 class="text-center mb-4">User Registration</h2>
-      <form  action="register.php" method="POST" >
+      <form  action="register.php" method="POST" id="register">
 
         <div class="mb-3">
           <label for="name" class="form-label">Full Name</label>
           <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
-          <div class="invalid-feedback">Full name is required.</div>
+          <!-- <div class="invalid-feedback">Full name is required.</div> -->
         </div>
 
         <div class="mb-3">
           <label for="email" class="form-label">Email Address</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
-          <div class="invalid-feedback">Please enter a valid email.</div>
+          <!-- <div class="invalid-feedback">Please enter a valid email.</div> -->
         </div>
 
 
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
           <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
-          <div class="invalid-feedback">Password is required.</div>
+          <!-- <div class="invalid-feedback">Password is required.</div> -->
         </div>
 
         <div class="mb-3">
           <label for="confirmPassword" class="form-label">Confirm Password</label>
           <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
-          <d class="invalid-feedback">Passwords must match.</d
+          <!-- <div class="invalid-feedback">Passwords must match.</div -->
         </div>
 
         <button type="submit" name="submit" class="btn btn-primary w-100">Register</button>
@@ -102,7 +105,46 @@
 
   <!-- Bootstrap 5 JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js" integrity="sha512-KFHXdr2oObHKI9w4Hv1XPKc898mE4kgYx58oqsc/JqqdLMDI4YjOLzom+EMlW8HFUd0QfjfAvxSL6sEq/a42fQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
+    $(document).ready(function(){
+      $("#register").validate({
+        rules: {
+          name: {
+            required: true
+          },
+          
+          password: {
+            required: true,
+            minlength: 8
+          },
+          confirmPassword: {
+            required: true,
+            minlength: 8,
+            equalTo: "#password"
+          }
+        },
+        messages: {
+          name: {
+            required: "Full name is required"
+          },
+          
+          password: {
+            required: "Password is required",
+            minlength: "Password must be at least 8 characters long"
+          },
+          confirmPassword: {
+            required: "Confirm password is required",
+            minlength: "Password must be at least 8 characters long",
+            equalTo: "Passwords must match"
+          }
+        }
+      });
+    }
+  )
+  </script>
+  <!-- <script>
     document.getElementById('registrationForm').addEventListener('submit', function (e) {
       e.preventDefault();
       const form = e.target;
@@ -123,6 +165,6 @@
         form.classList.remove('was-validated');
       }
     });
-  </script>
+  </script> -->
 </body>
 </html>
